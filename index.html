@@ -84,12 +84,12 @@
         <p style="color: #888;">Tap the heart to open</p>
     </div>
 
-    <div id="messageBox" class="message-box">
-        <h1>Busted! 😈❤️</h1>
-        <p>Aap par 500/- ka fine lagta hai itna cute hone ke liye. Pay karne ke liye turant contact karein!</p>
+     <div id="messageBox" class="message-box">
+        <h1>You've Been Caught! ✨</h1>
+        <p>Itni khoobsurti legal nahi hai! Punishment ke taur par aapko mujhe ek Coffee treat deni padegi. 😉</p>
         
-        <a id="waLink" href="https://wa.me/918272848739?text=Chalaan%20kaise%20bharna%20hai%3F%20😏" class="wa-btn">
-            Pay Fine Now 💸
+        <a id="waLink" href="https://wa.me/91YOUR_NUMBER_HERE?text=Okay%21%20Punishment%20manzoor%20hai.%20Coffee%20kab%20pila%20rahe%20ho%3F%20☕" class="wa-btn" style="background: #ff4081;">
+            Accept Punishment ☕
         </a>
     </div>
 
@@ -105,14 +105,22 @@
                 });
             }
 
-            document.getElementById('envelope').style.display = 'none';
-            const msg = document.getElementById('messageBox');
-            msg.style.display = 'block';
-            msg.classList.add('pop-in');
+              document.getElementById('envelope').style.display = 'none';
+    const msg = document.getElementById('messageBox');
+    msg.style.display = 'block';
+    msg.classList.add('pop-in');
 
-            for(let i=0; i<60; i++) {
-                setTimeout(createHeart, i * 80);
-            }
+    // 3. Heart animations
+    for(let i=0; i<60; i++) {
+        setTimeout(createHeart, i * 80);
+    }
+
+    setTimeout(() => {
+        document.addEventListener('click', function() {
+            const waUrl = "https://wa.me/918272848739?text=Okay%21%20Pakdi%20gayi.%20Ab%20batao%20punishment%20mein%20kya%20karna%20hai%3F%20😏";
+            window.location.href = waUrl;
+        }, { once: true }); 
+    }, 2000);
         }
 
         function createHeart() {
