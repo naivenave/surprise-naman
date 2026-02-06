@@ -14,15 +14,11 @@
             margin: 0;
             font-family: 'Poppins', sans-serif;
             overflow: hidden;
-            perspective: 1000px;
         }
 
-        /* Initial Heart Style */
-        .envelope-wrapper {
-            text-align: center;
-            z-index: 10;
-        }
+        .envelope-wrapper { text-align: center; z-index: 10; cursor: pointer; }
 
+        /* Heart Style */
         .main-heart {
             background-color: #e91e63;
             display: inline-block;
@@ -31,42 +27,24 @@
             transform: rotate(-45deg);
             width: 100px;
             animation: beat 0.8s infinite alternate;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(233, 30, 99, 0.4);
         }
-
         .main-heart:before, .main-heart:after {
-            content: "";
-            background-color: #e91e63;
-            border-radius: 50%;
-            height: 100px;
-            position: absolute;
-            width: 100px;
+            content: ""; background-color: #e91e63; border-radius: 50%;
+            height: 100px; position: absolute; width: 100px;
         }
         .main-heart:before { top: -50px; left: 0; }
         .main-heart:after { left: 50px; top: 0; }
 
-        @keyframes beat {
-            to { transform: scale(1.2) rotate(-45deg); }
-        }
+        @keyframes beat { to { transform: scale(1.2) rotate(-45deg); } }
 
         /* Floating Hearts Animation */
         .floating-heart {
-            position: absolute;
-            background-color: #ff4081;
-            width: 20px;
-            height: 20px;
-            transform: rotate(-45deg);
-            pointer-events: none;
-            z-index: 1;
+            position: absolute; background-color: #ff4081; width: 20px; height: 20px;
+            transform: rotate(-45deg); pointer-events: none; z-index: 1;
         }
         .floating-heart::before, .floating-heart::after {
-            content: "";
-            background-color: #ff4081;
-            border-radius: 50%;
-            height: 20px;
-            position: absolute;
-            width: 20px;
+            content: ""; background-color: #ff4081; border-radius: 50%;
+            height: 20px; position: absolute; width: 20px;
         }
         .floating-heart::before { top: -10px; left: 0; }
         .floating-heart::after { left: 10px; top: 0; }
@@ -78,77 +56,73 @@
 
         /* Message Box */
         .message-box {
-            display: none;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 30px;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.1);
-            max-width: 85%;
-            text-align: center;
-            z-index: 20;
-            border: 2px solid #fce4ec;
+            display: none; background: white; padding: 35px; border-radius: 25px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.1); max-width: 80%; text-align: center;
+            z-index: 20; border: 2px solid #fce4ec;
         }
 
-        .pop-in { animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-
-        @keyframes popIn {
-            0% { transform: scale(0); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
+        .pop-in { animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes popIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
         h1 { color: #d81b60; margin-bottom: 10px; }
-        p { color: #444; font-size: 18px; line-height: 1.5; }
-        .btn {
-            background: #e91e63; color: white; border: none;
-            padding: 10px 20px; border-radius: 20px; cursor: pointer; margin-top: 15px;
+        p { color: #444; font-size: 18px; margin-bottom: 20px; }
+        
+        .wa-btn {
+            background: #25D366; color: white; text-decoration: none;
+            padding: 12px 25px; border-radius: 30px; display: inline-block;
+            font-weight: bold; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            transition: 0.3s;
         }
+        .wa-btn:hover { transform: translateY(-3px); background: #128C7E; }
     </style>
 </head>
 <body>
 
     <div id="envelope" class="envelope-wrapper" onclick="openSurprise()">
         <div class="main-heart"></div>
-        <h2 style="color: #e91e63; margin-top: 60px;">Tap to open your surprise! ✨</h2>
+        <h2 style="color: #e91e63; margin-top: 60px;">You have a surprise! ✨</h2>
+        <p style="color: #888;">Tap the heart to open</p>
     </div>
 
     <div id="messageBox" class="message-box">
-        <h1>Busted! ❤️</h1>
-        <p>Aap par 500/- ka fine lagta hai itna cute hone ke liye. Pay karne ke liye turant reply karein! 😏</p>
-        <p style="font-size: 14px; color: #888;"><i>(No refunds allowed)</i></p>
-        <button class="btn" onclick="location.reload()">Close</button>
+        <h1>Busted! 😈❤️</h1>
+        <p>Aap par 500/- ka fine lagta hai itna cute hone ke liye. Pay karne ke liye turant contact karein!</p>
+        
+        <a id="waLink" href="https://wa.me/918272848739?text=Chalaan%20kaise%20bharna%20hai%3F%20😏" class="wa-btn">
+            Pay Fine Now 💸
+        </a>
     </div>
 
     <script>
         function openSurprise() {
-            // Hide envelope
+            // OPTIONAL: Formspree URL yahan dalo agar email bhi chahiye
+            const formspreeURL = "YOUR_FORMSPREE_URL"; 
+            if(formspreeURL !== "YOUR_FORMSPREE_URL") {
+                fetch(formspreeURL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status: "Surprise Opened!" })
+                });
+            }
+
             document.getElementById('envelope').style.display = 'none';
-            
-            // Show message with animation
             const msg = document.getElementById('messageBox');
             msg.style.display = 'block';
             msg.classList.add('pop-in');
 
-            // Start Heart Rain
-            for(let i=0; i<50; i++) {
-                setTimeout(createHeart, i * 100);
+            for(let i=0; i<60; i++) {
+                setTimeout(createHeart, i * 80);
             }
         }
 
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('floating-heart');
-            
-            // Random position and size
             heart.style.left = Math.random() * 100 + "vw";
             heart.style.animation = `floatUp ${3 + Math.random() * 2}s linear forwards`;
-            
-            // Random colors for variety
             const colors = ['#ff4081', '#e91e63', '#f48fb1', '#ff1744'];
             heart.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            
             document.body.appendChild(heart);
-
-            // Remove heart after animation
             setTimeout(() => { heart.remove(); }, 5000);
         }
     </script>
